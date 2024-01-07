@@ -1,6 +1,5 @@
 import time
 
-from rules import rules
 
 NEIGHBOUR_POSITIONS = [
     (-1, -1),
@@ -84,15 +83,16 @@ class GameOfLife:
 
 
 def main():
-    from creatures import creatures
+    from creatures import CREATURES
+    from rules import ALL_RULES
 
     dimensions = (20, 20)
     nb_generations = 60
     sleep_time_sec = 0.1
 
-    game = GameOfLife(dimensions=dimensions, rules=rules)
+    game = GameOfLife(dimensions=dimensions, rules=ALL_RULES)
 
-    creature = creatures["default"]
+    creature = CREATURES["default"]
     game.grid.place_creature(creature)
 
     game.run(nb_generations=nb_generations, sleep_time_sec=sleep_time_sec)

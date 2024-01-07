@@ -18,4 +18,4 @@ def overpopulate(cell, neighbors):
         return 0
 
 
-rules = [birth, lonely_death, stay_alive, overpopulate]
+ALL_RULES = [birth, lonely_death, stay_alive, overpopulate]
