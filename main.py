@@ -2,6 +2,17 @@ import time
 
 from rules import rules
 
+NEIGHBOUR_POSITIONS = [
+    (-1, -1),
+    (-1, 0),
+    (-1, 1),
+    (0, -1),
+    (0, 1),
+    (1, -1),
+    (1, 0),
+    (1, 1),
+]
+
 
 class Grid:
     def __init__(self, dimensions: tuple[int, int]):
@@ -28,18 +39,11 @@ class Grid:
             self.place_cell(x, y)
 
     def get_nb_neighbours(self, row: int, col: int):
-        positions = [
-            (-1, -1),
-            (-1, 0),
-            (-1, 1),
-            (0, -1),
-            (0, 1),
-            (1, -1),
-            (1, 0),
-            (1, 1),
-        ]
         return sum(
-            [self.is_alive(row + off_y, col + off_x) for off_y, off_x in positions]
+            [
+                self.is_alive(row + off_y, col + off_x)
+                for off_y, off_x in NEIGHBOUR_POSITIONS
+            ]
         )
 
     def __str__(self) -> str:
