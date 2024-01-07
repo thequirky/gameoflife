@@ -22,6 +22,9 @@ class Grid:
     def empty_grid(self):
         return [[0] * self.cols for _ in range(self.rows)]
 
+    def get_cell(self, row: int, col: int) -> int:
+        return self.grid[row][col]
+
     def is_cell_in_bounds(self, row: int, col: int) -> bool:
         return 0 <= row < self.rows and 0 <= col < self.cols
 
@@ -60,7 +63,7 @@ class GameOfLife:
 
         for row in range(self.grid.rows):
             for col in range(self.grid.cols):
-                cell = self.grid.grid[row][col]
+                cell = self.grid.get_cell(row, col)
                 nb_neighbours = self.grid.get_nb_neighbours(row, col)
 
                 new_cell = None
