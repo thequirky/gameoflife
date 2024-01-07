@@ -27,7 +27,7 @@ class Grid:
         for x, y in coords:
             self.place_cell(x, y)
 
-    def alive_neighbors(self, row: int, col: int):
+    def get_nb_neighbours(self, row: int, col: int):
         positions = [
             (-1, -1),
             (-1, 0),
@@ -48,20 +48,21 @@ class Grid:
 
 
 class GameOfLife:
-    def __init__(self, dimensions: tuple[int, int], rules=None):
+    def __init__(self, dimensions: tuple[int, int], rules=[]):
         self.grid = Grid(dimensions)
-        self.rules = rules if rules else []
+        self.rules = rules
 
     def update(self):
-        new_grid = [[0 for _ in range(self.grid.cols)] for _ in range(self.grid.rows)]
+        new_grid = self.grid.empty_grid()
+
         for row in range(self.grid.rows):
             for col in range(self.grid.cols):
                 cell = self.grid.grid[row][col]
-                alive_neighbors = self.grid.alive_neighbors(row, col)
+                nb_neighbours = self.grid.get_nb_neighbours(row, col)
 
                 new_cell = None
                 for rule in self.rules:
-                    result = rule(cell, alive_neighbors)
+                    result = rule(cell, nb_neighbours)
                     if result is not None:
                         new_cell = result
                         break
@@ -95,4 +96,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
