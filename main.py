@@ -34,16 +34,18 @@ class Grid:
     def place_cell(self, row: int, col: int) -> None:
         self.grid[row][col] = 1
 
-    def place_creature(self, coords: tuple[int, int]) -> None:
+    def place_creature(
+        self, coords: tuple[int, int], at_position: tuple[int, int]
+    ) -> None:
         for row, col in coords:
-            self.place_cell(row, col)
+            self.place_cell(row + at_position[0], col + at_position[1])
 
     def get_nb_neighbours(self, row: int, col: int):
         return sum(
             [
-                self.is_alive(row + y, col + x)
-                for y, x in NEIGHBOUR_POSITIONS
-                if self.is_in_bounds(row + y, col + x)
+                self.is_alive(row + row_offset, col + col_offset)
+                for row_offset, col_offset in NEIGHBOUR_POSITIONS
+                if self.is_in_bounds(row + row_offset, col + col_offset)
             ]
         )
 
@@ -89,13 +91,14 @@ def main():
     from rules import ALL_RULES
 
     dimensions = (20, 20)
-    nb_generations = 60
+    nb_generations = 100
     sleep_time_sec = 0.1
 
     game = GameOfLife(dimensions=dimensions, rules=ALL_RULES)
 
     creature = CREATURES["default"]
-    game.grid.place_creature(creature)
+    game.grid.place_creature(creature, at_position=(0, 0))
+    game.grid.place_creature(creature, at_position=(5, 5))
 
     game.run(nb_generations=nb_generations, sleep_time_sec=sleep_time_sec)
 
