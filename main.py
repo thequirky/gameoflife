@@ -102,7 +102,7 @@ class GameOfLife:
 
 
 def main():
-    from creatures import CREATURES
+    from creatures import A, D, to_coords
     from rules import ALL_RULES
 
     dimensions = (20, 20)
@@ -111,12 +111,13 @@ def main():
 
     game = GameOfLife(dimensions=dimensions, rules=ALL_RULES)
 
-    creature_placements = [
-        ("default", (0,0)),
-        ("mirrorred", (10,10))
-    ]
+    creature_placements = [("A", (0, 0)), ("D", (10, 10))]
+    creatures = {
+        "A": to_coords(A),
+        "D": to_coords(D),
+    }
     for name, position in creature_placements:
-        game.grid.place_creature(CREATURES[name], at_position=position)
+        game.grid.place_creature(creatures[name], at_position=position)
 
     game.run(nb_generations=nb_generations, sleep_time_sec=sleep_time_sec)
 

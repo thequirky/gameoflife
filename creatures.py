@@ -26,7 +26,11 @@ C = [
     "111",
 ]
 
-CREATURES = {
-    "default": to_coords(A),
-    "mirrorred": to_coords(C),
-}
+D = [
+    "0110",
+    "1001",
+    "1011",
+    "0110",
+]
+
+
