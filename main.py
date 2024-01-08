@@ -25,26 +25,25 @@ class Grid:
     def get_cell(self, row: int, col: int) -> int:
         return self.grid[row][col]
 
-    def is_cell_in_bounds(self, row: int, col: int) -> bool:
+    def is_in_bounds(self, row: int, col: int) -> bool:
         return 0 <= row < self.rows and 0 <= col < self.cols
 
     def is_alive(self, row: int, col: int) -> bool:
-        if not self.is_cell_in_bounds(row, col):
-            return False
-        return self.grid[row][col]
+        return self.get_cell(row, col) == 1
 
     def place_cell(self, row: int, col: int) -> None:
         self.grid[row][col] = 1
 
     def place_creature(self, coords: tuple[int, int]) -> None:
-        for x, y in coords:
-            self.place_cell(x, y)
+        for row, col in coords:
+            self.place_cell(row, col)
 
     def get_nb_neighbours(self, row: int, col: int):
         return sum(
             [
-                self.is_alive(row + off_y, col + off_x)
-                for off_y, off_x in NEIGHBOUR_POSITIONS
+                self.is_alive(row + y, col + x)
+                for y, x in NEIGHBOUR_POSITIONS
+                if self.is_in_bounds(row + y, col + x)
             ]
         )
 
