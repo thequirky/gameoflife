@@ -14,15 +14,19 @@ NEIGHBOUR_POSITIONS = [
 
 
 class Grid:
-    def __init__(self, dimensions: tuple[int, int]):
+    def __init__(self, dimensions: tuple[int, int], infinite: bool = False):
         self.rows = dimensions[0]
         self.cols = dimensions[1]
+        self.infinite = infinite
         self.grid = self.empty_grid()
 
     def empty_grid(self):
         return [[0] * self.cols for _ in range(self.rows)]
 
     def get_cell(self, row: int, col: int) -> int:
+        if self.infinite:
+            row = row % self.rows
+            col = col % self.cols
         return self.grid[row][col]
 
     def is_in_bounds(self, row: int, col: int) -> bool:
@@ -32,6 +36,9 @@ class Grid:
         return self.get_cell(row, col) == 1
 
     def place_cell(self, row: int, col: int) -> None:
+        if self.infinite:
+            row = row % self.rows
+            col = col % self.cols
         self.grid[row][col] = 1
 
     def place_creature(
@@ -41,13 +48,21 @@ class Grid:
             self.place_cell(row + at_position[0], col + at_position[1])
 
     def get_nb_neighbours(self, row: int, col: int):
-        return sum(
-            [
-                self.is_alive(row + row_offset, col + col_offset)
-                for row_offset, col_offset in NEIGHBOUR_POSITIONS
-                if self.is_in_bounds(row + row_offset, col + col_offset)
-            ]
-        )
+        if self.infinite:
+            return sum(
+                [
+                    self.is_alive(row + row_offset, col + col_offset)
+                    for row_offset, col_offset in NEIGHBOUR_POSITIONS
+                ]
+            )
+        else:
+            return sum(
+                [
+                    self.is_alive(row + row_offset, col + col_offset)
+                    for row_offset, col_offset in NEIGHBOUR_POSITIONS
+                    if self.is_in_bounds(row + row_offset, col + col_offset)
+                ]
+            )
 
     def __str__(self) -> str:
         rows = [" ".join(map(str, row)) for row in self.grid]
@@ -96,9 +111,12 @@ def main():
 
     game = GameOfLife(dimensions=dimensions, rules=ALL_RULES)
 
-    creature = CREATURES["default"]
-    game.grid.place_creature(creature, at_position=(0, 0))
-    game.grid.place_creature(creature, at_position=(5, 5))
+    creature_placements = [
+        ("default", (0,0)),
+        ("mirrorred", (10,10))
+    ]
+    for name, position in creature_placements:
+        game.grid.place_creature(CREATURES[name], at_position=position)
 
     game.run(nb_generations=nb_generations, sleep_time_sec=sleep_time_sec)
 
