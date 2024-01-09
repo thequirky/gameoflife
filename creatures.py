@@ -32,4 +32,9 @@ D = [
     "0110",
 ]
 
-
+ALL_CREATURES = {
+    "A": to_coords(A),
+    "B": to_coords(B),
+    "C": to_coords(C),
+    "D": to_coords(D),
+}

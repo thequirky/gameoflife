@@ -70,8 +70,8 @@ class Grid:
 
 
 class GameOfLife:
-    def __init__(self, dimensions: tuple[int, int], rules=[]):
-        self.grid = Grid(dimensions)
+    def __init__(self, grid: Grid, rules: list[callable]):
+        self.grid = grid
         self.rules = rules
 
     def update(self):
@@ -93,33 +93,31 @@ class GameOfLife:
 
         self.grid.grid = new_grid
 
-    def run(self, nb_generations: int, sleep_time_sec: float) -> None:
+    def run(self, nb_generations: int, sleep_time_msec: int) -> None:
         for generation in range(1, nb_generations + 1):
             self.update()
             print(f"Generation {generation}:\n")
             print(self.grid)
-            time.sleep(sleep_time_sec)
+            time.sleep(sleep_time_msec / 1000)
 
 
 def main():
-    from creatures import A, D, to_coords
+    from creatures import ALL_CREATURES
     from rules import ALL_RULES
 
     dimensions = (20, 20)
     nb_generations = 100
-    sleep_time_sec = 0.1
+    sleep_time_msec = 100
+    creature_placements = {"A": (0, 0), "D": (10, 10)}
 
-    game = GameOfLife(dimensions=dimensions, rules=ALL_RULES)
+    grid = Grid(dimensions)
 
-    creature_placements = [("A", (0, 0)), ("D", (10, 10))]
-    creatures = {
-        "A": to_coords(A),
-        "D": to_coords(D),
-    }
-    for name, position in creature_placements:
-        game.grid.place_creature(creatures[name], at_position=position)
+    game = GameOfLife(grid=grid, rules=ALL_RULES)
 
-    game.run(nb_generations=nb_generations, sleep_time_sec=sleep_time_sec)
+    for name, position in creature_placements.items():
+        game.grid.place_creature(ALL_CREATURES[name], at_position=position)
+
+    game.run(nb_generations=nb_generations, sleep_time_msec=sleep_time_msec)
 
 
 if __name__ == "__main__":
