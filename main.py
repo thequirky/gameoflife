@@ -5,7 +5,7 @@ from rules import ALL_RULES
 
 
 class GameOfLife:
-    def __init__(self, grid: Grid):
+    def __init__(self, grid: Grid) -> None:
         self.grid = grid
 
     @staticmethod
@@ -15,7 +15,7 @@ class GameOfLife:
             if result is not None:
                 return result
 
-    def update_grid(self):
+    def update_grid(self) -> None:
         new_grid = self.grid.empty_grid()
 
         for row in range(self.grid.rows):

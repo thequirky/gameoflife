@@ -17,7 +17,7 @@ class Grid:
         self.infinite_boundary = infinite_boundary
         self.grid = self.empty_grid()
 
-    def empty_grid(self):
+    def empty_grid(self) -> list[list[int]]:
         return [[0] * self.cols for _ in range(self.rows)]
 
     def get_cell(self, row: int, col: int) -> int:
@@ -44,7 +44,7 @@ class Grid:
         for row, col in coords:
             self.place_cell(row + at_position[0], col + at_position[1])
 
-    def get_nb_neighbours(self, row: int, col: int):
+    def get_nb_neighbours(self, row: int, col: int) -> int:
         if self.infinite_boundary:
             return sum(
                 [
