@@ -7,34 +7,20 @@ def to_coords(creature: list[str]) -> list[tuple[int, int]]:
     return coords
 
 
-A = [
-    "010",
-    "001",
-    "111",
-]
-
-B = [
-    "011",
-    "101",
-    "001",
-]
-
-C = [
-    "010",
-    "101",
-    "111",
-]
-
-D = [
-    "0110",
-    "1001",
-    "1011",
-    "0110",
-]
-
 ALL_CREATURES = {
-    "A": to_coords(A),
-    "B": to_coords(B),
-    "C": to_coords(C),
-    "D": to_coords(D),
+    "A": to_coords(
+        [
+            "010",
+            "001",
+            "111",
+        ]
+    ),
+    "D": to_coords(
+        [
+            "0110",
+            "1001",
+            "1011",
+            "0110",
+        ]
+    ),
 }
