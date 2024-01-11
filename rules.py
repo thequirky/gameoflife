@@ -26,3 +26,4 @@ def get_rules_result(cell: int, nb_neighbours: int) -> None | int:
         result = rule(cell, nb_neighbours)
         if result is not None:
             return result
+    return cell
