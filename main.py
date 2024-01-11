@@ -1,19 +1,12 @@
 import time
 from grid import Grid
 
-from rules import ALL_RULES
+from rules import get_rules_result
 
 
 class GameOfLife:
     def __init__(self, grid: Grid) -> None:
         self.grid = grid
-
-    @staticmethod
-    def get_rules_result(cell: int, nb_neighbours: int) -> None | int:
-        for rule in ALL_RULES:
-            result = rule(cell, nb_neighbours)
-            if result is not None:
-                return result
 
     def update_grid(self) -> None:
         new_grid = self.grid.empty_grid()
@@ -22,7 +15,7 @@ class GameOfLife:
             for col in range(self.grid.cols):
                 cell = self.grid.get_cell(row, col)
                 nb_neighbours = self.grid.get_nb_neighbours(row, col)
-                new_cell = self.get_rules_result(cell, nb_neighbours)
+                new_cell = get_rules_result(cell, nb_neighbours)
 
                 new_grid[row][col] = new_cell if new_cell is not None else cell
 
