@@ -33,7 +33,7 @@ def main():
     dimensions = (20, 20)
     nb_generations = 100
     sleep_time_msec = 100
-    creature_placement_data = [("A", (0, 0)), ("D", (10, 10))]
+    creature_placement_data = [("glider", (0, 0)), ("q_creature", (10, 10))]
 
     grid = Grid(dimensions)
 
