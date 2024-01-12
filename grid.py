@@ -1,6 +1,3 @@
-from creature import Creature
-
-
 NEIGHBOUR_POSITIONS = [
     (-1, -1),
     (-1, 0),
@@ -41,8 +38,8 @@ class Grid:
             col = col % self.cols
         self.grid[row][col] = 1
 
-    def place_creature(self, creature: Creature, at_position: tuple[int, int]) -> None:
-        for row, col in creature.coords:
+    def place_creature(self, coords: list[tuple[int, int]], at_position: tuple[int, int]) -> None:
+        for row, col in coords:
             self.place_cell(row + at_position[0], col + at_position[1])
 
     def get_nb_neighbours(self, row: int, col: int) -> int:
