@@ -35,12 +35,12 @@ def main():
     sleep_time_msec = 100
     creature_placements = [("A", (0, 0)), ("D", (10, 10))]
 
-    grid = Grid(dimensions=dimensions, infinite_boundary=False)
+    grid = Grid(dimensions)
 
-    game = GameOfLife(grid=grid)
+    for creature_name, position in creature_placements:
+        grid.place_creature(ALL_CREATURES[creature_name], at_position=position)
 
-    for name, position in creature_placements:
-        game.grid.place_creature(ALL_CREATURES[name], at_position=position)
+    game = GameOfLife(grid)
 
     game.run(nb_generations=nb_generations, sleep_time_msec=sleep_time_msec)
 
