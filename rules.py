@@ -21,7 +21,7 @@ def overpopulate(cell: int, neighbours: int) -> None | int:
 ALL_RULES = [birth, lonely_death, stay_alive, overpopulate]
 
 
-def get_rules_result(cell: int, nb_neighbours: int) -> None | int:
+def evaluate_rules(cell: int, nb_neighbours: int) -> None | int:
     for rule in ALL_RULES:
         result = rule(cell, nb_neighbours)
         if result is not None:
