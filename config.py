@@ -6,3 +6,4 @@ creature_placement_data = [
     ("glider", (10, 0)),
     ("q_creature", (10, 10)),
 ]
+infinite_boundary = False

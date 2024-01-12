@@ -6,11 +6,12 @@ from config import (
     creature_placement_data,
     nb_generations,
     sleep_time_msec,
+    infinite_boundary,
 )
 
 
 def main():
-    grid = Grid(dimensions=dimensions)
+    grid = Grid(dimensions=dimensions, infinite_boundary=infinite_boundary)
 
     for creature_name, position in creature_placement_data:
         grid.place_creature(ALL_CREATURES[creature_name], at_position=position)
