@@ -1,41 +1,16 @@
-import time
+from game import GameOfLife
 from grid import Grid
-
-from rules import evaluate_rules
-
-
-class GameOfLife:
-    def __init__(self, grid: Grid) -> None:
-        self.grid = grid
-
-    def update_grid(self) -> None:
-        new_grid = self.grid.empty_grid()
-
-        for row in range(self.grid.rows):
-            for col in range(self.grid.cols):
-                cell = self.grid.get_cell(row, col)
-                nb_neighbours = self.grid.get_nb_neighbours(row, col)
-                new_grid[row][col] = evaluate_rules(cell, nb_neighbours)
-
-        self.grid.grid = new_grid
-
-    def run(self, nb_generations: int, sleep_time_msec: int) -> None:
-        for generation in range(1, nb_generations + 1):
-            self.update_grid()
-            print(f"Generation {generation}:\n")
-            print(self.grid)
-            time.sleep(sleep_time_msec / 1000)
+from creatures import ALL_CREATURES
+from config import (
+    dimensions,
+    creature_placement_data,
+    nb_generations,
+    sleep_time_msec,
+)
 
 
 def main():
-    from creatures import ALL_CREATURES
-
-    dimensions = (20, 20)
-    nb_generations = 100
-    sleep_time_msec = 100
-    creature_placement_data = [("glider", (0, 0)), ("q_creature", (10, 10))]
-
-    grid = Grid(dimensions)
+    grid = Grid(dimensions=dimensions)
 
     for creature_name, position in creature_placement_data:
         grid.place_creature(ALL_CREATURES[creature_name], at_position=position)
