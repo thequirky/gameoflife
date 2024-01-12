@@ -33,11 +33,11 @@ def main():
     dimensions = (20, 20)
     nb_generations = 100
     sleep_time_msec = 100
-    creature_placements = [("A", (0, 0)), ("D", (10, 10))]
+    creature_placement_data = [("A", (0, 0)), ("D", (10, 10))]
 
     grid = Grid(dimensions)
 
-    for creature_name, position in creature_placements:
+    for creature_name, position in creature_placement_data:
         grid.place_creature(ALL_CREATURES[creature_name], at_position=position)
 
     game = GameOfLife(grid)
