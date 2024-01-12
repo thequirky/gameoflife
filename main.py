@@ -1,6 +1,6 @@
 from game import GameOfLife
 from grid import Grid
-from creatures import ALL_CREATURES
+from creature import ALL_CREATURES
 from config import (
     dimensions,
     creature_placement_data,

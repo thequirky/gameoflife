@@ -1,4 +1,4 @@
-from creatures import Creature
+from creature import Creature
 
 
 NEIGHBOUR_POSITIONS = [
