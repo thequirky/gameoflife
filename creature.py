@@ -1,6 +1,9 @@
+from dataclasses import dataclass
+
+
+@dataclass
 class Creature:
-    def __init__(self, signature: list[str]) -> None:
-        self.signature = signature
+    signature: list[str]
 
     @property
     def coords(self) -> list[tuple[int, int]]:
