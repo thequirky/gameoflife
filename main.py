@@ -9,7 +9,7 @@ def main():
         dimensions=config.dimensions, infinite_boundary=config.infinite_boundary
     )
 
-    for creature_name, position in config.creature_placement_data:
+    for creature_name, position in config.creature_placements:
         grid.place_creature(ALL_CREATURES[creature_name], at_position=position)
 
     game = GameOfLife(grid)
