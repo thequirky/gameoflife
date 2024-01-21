@@ -2,7 +2,6 @@ from dataclasses import dataclass
 
 position = tuple[int, int]
 creature = str
-placement = tuple[creature, position]
 
 
 @dataclass
@@ -10,7 +9,7 @@ class Config:
     dimensions: tuple[int, int]
     nb_generations: int
     sleep_time_msec: int
-    creature_placement_data: list[placement]
+    creature_placement_data: list[tuple[creature, position]]
     infinite_boundary: bool
 
 
