@@ -1,3 +1,6 @@
+from typing import Protocol
+
+
 NEIGHBOUR_POSITIONS = [
     (-1, -1),
     (-1, 0),
@@ -8,6 +11,14 @@ NEIGHBOUR_POSITIONS = [
     (1, 0),
     (1, 1),
 ]
+
+position = coord = tuple[int, int]
+
+
+class Creature(Protocol):
+    @property
+    def coords(self) -> list[coord]:
+        ...
 
 
 class Grid:
@@ -38,8 +49,8 @@ class Grid:
             col = col % self.cols
         self.grid[row][col] = 1
 
-    def place_creature(self, coords: list[tuple[int, int]], at_position: tuple[int, int]) -> None:
-        for row, col in coords:
+    def place_creature(self, creature: Creature, at_position: position) -> None:
+        for row, col in creature.coords:
             self.place_cell(row + at_position[0], col + at_position[1])
 
     def get_nb_neighbours(self, row: int, col: int) -> int:
