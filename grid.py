@@ -1,7 +1,9 @@
 from typing import Protocol
 
+position = tuple[int, int]
 
-NEIGHBOUR_POSITIONS = [
+
+NEIGHBOUR_POSITIONS: list[position] = [
     (-1, -1),
     (-1, 0),
     (-1, 1),
@@ -12,12 +14,10 @@ NEIGHBOUR_POSITIONS = [
     (1, 1),
 ]
 
-position = coord = tuple[int, int]
-
 
 class Creature(Protocol):
     @property
-    def coords(self) -> list[coord]:
+    def coords(self) -> list[position]:
         ...
 
 
