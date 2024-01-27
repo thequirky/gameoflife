@@ -3,18 +3,6 @@ from typing import Protocol
 position = tuple[int, int]
 
 
-NEIGHBOUR_POSITIONS: list[position] = [
-    (-1, -1),
-    (-1, 0),
-    (-1, 1),
-    (0, -1),
-    (0, 1),
-    (1, -1),
-    (1, 0),
-    (1, 1),
-]
-
-
 class Creature(Protocol):
     @property
     def coords(self) -> list[position]:
@@ -22,6 +10,17 @@ class Creature(Protocol):
 
 
 class Grid:
+    neighbour_positions = [
+        (-1, -1),
+        (-1, 0),
+        (-1, 1),
+        (0, -1),
+        (0, 1),
+        (1, -1),
+        (1, 0),
+        (1, 1),
+    ]
+
     def __init__(self, dimensions: tuple[int, int], infinite_boundary: bool = False):
         self.rows = dimensions[0]
         self.cols = dimensions[1]
@@ -58,13 +57,13 @@ class Grid:
             return sum(
                 [
                     self.is_alive(row + row_offset, col + col_offset)
-                    for row_offset, col_offset in NEIGHBOUR_POSITIONS
+                    for row_offset, col_offset in self.neighbour_positions
                 ]
             )
         return sum(
             [
                 self.is_alive(row + row_offset, col + col_offset)
-                for row_offset, col_offset in NEIGHBOUR_POSITIONS
+                for row_offset, col_offset in self.neighbour_positions
                 if self.is_in_bounds(row + row_offset, col + col_offset)
             ]
         )
